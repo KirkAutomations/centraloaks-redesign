@@ -350,6 +350,25 @@ h1,h2,h3,h4,h5,h6{font-family:'Playfair Display',serif;line-height:1.3}
   .theme-dot{width:26px;height:26px}
 }
 
+/* ===== COPY SWITCHER ===== */
+.copy-switcher{position:fixed;left:20px;top:50%;transform:translateY(-50%);z-index:9999;display:flex;flex-direction:column;align-items:center;gap:10px;background:rgba(0,0,0,.2);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-radius:24px;padding:14px 8px;border:1px solid rgba(255,255,255,.1)}
+.voice-label{writing-mode:vertical-rl;text-orientation:mixed;transform:rotate(180deg);font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:3px;color:rgba(255,255,255,.6);margin-bottom:4px;text-shadow:0 1px 3px rgba(0,0,0,.4)}
+.copy-dot{width:32px;height:32px;border-radius:50%;cursor:pointer;border:3px solid rgba(255,255,255,.3);transition:all .3s;position:relative;display:flex;align-items:center;justify-content:center}
+.copy-dot:hover{transform:scale(1.2)}
+.copy-dot.active{border-color:#fff;box-shadow:0 0 12px rgba(255,255,255,.3)}
+.copy-letter{color:#fff;font-size:.75rem;font-weight:700;line-height:1;pointer-events:none;text-shadow:0 1px 2px rgba(0,0,0,.4)}
+.copy-label{position:absolute;left:44px;background:rgba(0,0,0,.85);color:#fff;padding:4px 10px;border-radius:6px;font-size:.75rem;font-weight:600;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .3s}
+.copy-dot:hover .copy-label{opacity:1}
+.copy-swap{transition:opacity .3s ease}
+.copy-swap.fading{opacity:0}
+@media(max-width:480px){
+  .copy-switcher{left:12px;padding:10px 6px}
+  .copy-dot{width:26px;height:26px}
+  .copy-letter{font-size:.6rem}
+  .voice-label{font-size:.55rem;letter-spacing:2px}
+}
+@media print{.copy-switcher{display:none!important}}
+
 /* ===== PRINT ===== */
 @media print{
   .nav,.loader,.scroll-progress,.cursor-glow,.theme-switcher,.hamburger{display:none!important}
@@ -397,6 +416,31 @@ h1,h2,h3,h4,h5,h6{font-family:'Playfair Display',serif;line-height:1.3}
   </button>
 </div>
 
+<!-- Copy Doctrine Switcher -->
+<div class="copy-switcher" role="radiogroup" aria-label="Copy voice selector">
+  <span class="voice-label" aria-hidden="true">Voice</span>
+  <button class="copy-dot active" data-copy-val="warm" role="radio" aria-checked="true" aria-label="Warm Invitation voice" style="background:linear-gradient(135deg,#d4a017,#f7d645)">
+    <span class="copy-letter">W</span>
+    <span class="copy-label">Warm Invitation</span>
+  </button>
+  <button class="copy-dot" data-copy-val="bold" role="radio" aria-checked="false" aria-label="Bold Declaration voice" style="background:linear-gradient(135deg,#0d1138,#303e7a)">
+    <span class="copy-letter">B</span>
+    <span class="copy-label">Bold Declaration</span>
+  </button>
+  <button class="copy-dot" data-copy-val="story" role="radio" aria-checked="false" aria-label="Storyteller voice" style="background:linear-gradient(135deg,#c87533,#e8a84c)">
+    <span class="copy-letter">S</span>
+    <span class="copy-label">Storyteller</span>
+  </button>
+  <button class="copy-dot" data-copy-val="plain" role="radio" aria-checked="false" aria-label="Plain Speaker voice" style="background:linear-gradient(135deg,#1a5c2a,#2d8a4e)">
+    <span class="copy-letter">P</span>
+    <span class="copy-label">Plain Speaker</span>
+  </button>
+  <button class="copy-dot" data-copy-val="ancient" role="radio" aria-checked="false" aria-label="Ancient and Modern voice" style="background:linear-gradient(135deg,#4a1a6b,#7b2ea8)">
+    <span class="copy-letter">A</span>
+    <span class="copy-label">Ancient + Modern</span>
+  </button>
+</div>
+
 <!-- Navigation -->
 <nav class="nav" role="navigation" aria-label="Main navigation">
   <div class="nav-inner">
@@ -427,12 +471,12 @@ h1,h2,h3,h4,h5,h6{font-family:'Playfair Display',serif;line-height:1.3}
   <div class="hero-overlay" aria-hidden="true"></div>
   <div class="hero-content">
     <h1 class="hero-heading">
-      <span class="shimmer">What if a church was more like a family you belong to instead of a place you go to?</span>
+      <span class="shimmer"><span class="copy-swap" data-key="hero-heading">What if a church was more like a family you belong to instead of a place you go to?</span></span>
     </h1>
     <p class="hero-sub">A family-friendly Bible church near you in Royal Oak</p>
     <a href="#visit" class="btn-primary magnetic-btn" aria-label="Plan your visit">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20" aria-hidden="true"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
-      Plan Your Visit
+      <span class="copy-swap" data-key="hero-button">Plan Your Visit</span>
     </a>
   </div>
 </section>
@@ -463,37 +507,37 @@ h1,h2,h3,h4,h5,h6{font-family:'Playfair Display',serif;line-height:1.3}
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
         What We Believe
       </span>
-      <h2 class="section-title">Our Family DNA</h2>
-      <p class="section-subtitle">The good news that holds our church family together.</p>
+      <h2 class="section-title"><span class="copy-swap" data-key="dna-title">Our Family DNA</span></h2>
+      <p class="section-subtitle"><span class="copy-swap" data-key="dna-intro">The good news that holds our church family together.</span></p>
     </div>
     <div class="dna-grid reveal-stagger">
       <article class="glass-card tilt-card" aria-label="God">
         <div class="card-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
         </div>
-        <h3 class="card-title">God</h3>
-        <p class="card-text">God is the King of the universe. He made everything and sustains it. He is good and deserving of everyone to devote their life to Him.</p>
+        <h3 class="card-title"><span class="copy-swap" data-key="god-card-title">God</span></h3>
+        <p class="card-text"><span class="copy-swap" data-key="god-card-text">God is the King of the universe. He made everything and sustains it. He is good and deserving of everyone to devote their life to Him.</span></p>
       </article>
       <article class="glass-card tilt-card" aria-label="People">
         <div class="card-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
         </div>
-        <h3 class="card-title">People</h3>
-        <p class="card-text">We have all wanted to be the king of our own lives. But we messed it up and hurt ourselves and those around us. These acts of rebellion we&rsquo;ve all committed are called sin and are deserving of God&rsquo;s judgment.</p>
+        <h3 class="card-title"><span class="copy-swap" data-key="people-card-title">People</span></h3>
+        <p class="card-text"><span class="copy-swap" data-key="people-card-text">We have all wanted to be the king of our own lives. But we messed it up and hurt ourselves and those around us. These acts of rebellion we&rsquo;ve all committed are called sin and are deserving of God&rsquo;s judgment.</span></p>
       </article>
       <article class="glass-card tilt-card" aria-label="Jesus">
         <div class="card-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2v20"/><path d="M2 12h20"/><path d="m4.93 4.93 14.14 14.14"/><path d="m19.07 4.93-14.14 14.14"/></svg>
         </div>
-        <h3 class="card-title">Jesus</h3>
-        <p class="card-text">Instead of punishing us for our rebellion, God loved us so much that He sent Jesus to earth to suffer in our place. God raised Him from the dead to make Him King of everyone and everything and to offer forgiveness and new life to those who trust in Him.</p>
+        <h3 class="card-title"><span class="copy-swap" data-key="jesus-card-title">Jesus</span></h3>
+        <p class="card-text"><span class="copy-swap" data-key="jesus-card-text">Instead of punishing us for our rebellion, God loved us so much that He sent Jesus to earth to suffer in our place. God raised Him from the dead to make Him King of everyone and everything and to offer forgiveness and new life to those who trust in Him.</span></p>
       </article>
       <article class="glass-card tilt-card" aria-label="Our Response">
         <div class="card-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
         </div>
-        <h3 class="card-title">Our Response</h3>
-        <p class="card-text">God has now helped us do two things in response to this news: our church family has each (1) turned away from living our lives as our own king to let Jesus be our king instead and (2) believed in Him.</p>
+        <h3 class="card-title"><span class="copy-swap" data-key="response-card-title">Our Response</span></h3>
+        <p class="card-text"><span class="copy-swap" data-key="response-card-text">God has now helped us do two things in response to this news: our church family has each (1) turned away from living our lives as our own king to let Jesus be our king instead and (2) believed in Him.</span></p>
       </article>
     </div>
   </div>
@@ -508,8 +552,8 @@ h1,h2,h3,h4,h5,h6{font-family:'Playfair Display',serif;line-height:1.3}
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
       Our Purpose
     </span>
-    <h2 class="mission-heading">Our church&rsquo;s mission is to help people follow Jesus.</h2>
-    <p class="mission-sub">We do this by sharing the good news of Jesus, baptizing those who trust Him, and teaching everyone to follow His teachings together as a church family.</p>
+    <h2 class="mission-heading"><span class="copy-swap" data-key="mission-heading">Our church&rsquo;s mission is to help people follow Jesus.</span></h2>
+    <p class="mission-sub"><span class="copy-swap" data-key="mission-subtext">We do this by sharing the good news of Jesus, baptizing those who trust Him, and teaching everyone to follow His teachings together as a church family.</span></p>
   </div>
 </section>
 
@@ -521,37 +565,37 @@ h1,h2,h3,h4,h5,h6{font-family:'Playfair Display',serif;line-height:1.3}
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
         Sundays at 11 AM
       </span>
-      <h2 class="section-title">Plan Your Visit</h2>
-      <p class="section-subtitle" style="margin:0 auto 12px">We&rsquo;d love to meet you this Sunday! Here&rsquo;s what to expect.</p>
+      <h2 class="section-title"><span class="copy-swap" data-key="visit-title">Plan Your Visit</span></h2>
+      <p class="section-subtitle" style="margin:0 auto 12px"><span class="copy-swap" data-key="visit-intro">We&rsquo;d love to meet you this Sunday! Here&rsquo;s what to expect.</span></p>
     </div>
     <div class="visit-grid reveal-stagger">
       <article class="light-card tilt-card" aria-label="What to Wear">
         <div class="card-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.38 3.46 16 2 12 5.5 8 2 3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23z"/></svg>
         </div>
-        <h3 class="card-title">What to Wear</h3>
-        <p class="card-text">Come as you are! You&rsquo;ll find people in everything from jeans and t-shirts to dress clothes. There&rsquo;s no dress code &mdash; just come comfortable.</p>
+        <h3 class="card-title"><span class="copy-swap" data-key="wear-title">What to Wear</span></h3>
+        <p class="card-text"><span class="copy-swap" data-key="wear-text">Come as you are! You&rsquo;ll find people in everything from jeans and t-shirts to dress clothes. There&rsquo;s no dress code &mdash; just come comfortable.</span></p>
       </article>
       <article class="light-card tilt-card" aria-label="What to Bring">
         <div class="card-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
         </div>
-        <h3 class="card-title">What to Bring</h3>
-        <p class="card-text">Just bring yourself! We have Bibles available if you don&rsquo;t have one. We also project lyrics and scripture on screen so you can follow along easily.</p>
+        <h3 class="card-title"><span class="copy-swap" data-key="bring-title">What to Bring</span></h3>
+        <p class="card-text"><span class="copy-swap" data-key="bring-text">Just bring yourself! We have Bibles available if you don&rsquo;t have one. We also project lyrics and scripture on screen so you can follow along easily.</span></p>
       </article>
       <article class="light-card tilt-card" aria-label="Children">
         <div class="card-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="4" r="2"/><path d="m14 20-2-6-2 6"/><path d="M10 14h4"/><path d="M6 8c0 4 6 8 6 8s6-4 6-8"/></svg>
         </div>
-        <h3 class="card-title">Children</h3>
-        <p class="card-text">Kids are welcome to stay in the service, or we have a staffed nursery and children&rsquo;s classes during the sermon for ages up through 5th grade.</p>
+        <h3 class="card-title"><span class="copy-swap" data-key="children-title">Children</span></h3>
+        <p class="card-text"><span class="copy-swap" data-key="children-text">Kids are welcome to stay in the service, or we have a staffed nursery and children&rsquo;s classes during the sermon for ages up through 5th grade.</span></p>
       </article>
       <article class="light-card tilt-card" aria-label="Where to Enter">
         <div class="card-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
         </div>
-        <h3 class="card-title">Where to Enter</h3>
-        <p class="card-text">Our building is at 2005 Rochester Rd. in Royal Oak. Look for the main entrance on the north side of the building. Greeters will welcome you and help you find your way!</p>
+        <h3 class="card-title"><span class="copy-swap" data-key="enter-title">Where to Enter</span></h3>
+        <p class="card-text"><span class="copy-swap" data-key="enter-text">Our building is at 2005 Rochester Rd. in Royal Oak. Look for the main entrance on the north side of the building. Greeters will welcome you and help you find your way!</span></p>
       </article>
     </div>
     <div class="reveal" style="text-align:center;margin-top:40px">
@@ -571,24 +615,24 @@ h1,h2,h3,h4,h5,h6{font-family:'Playfair Display',serif;line-height:1.3}
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
         Since 1938
       </span>
-      <h2 class="section-title">Our Story</h2>
-      <p class="section-subtitle">A legacy of faith spanning over eight decades.</p>
+      <h2 class="section-title"><span class="copy-swap" data-key="story-title">Our Story</span></h2>
+      <p class="section-subtitle"><span class="copy-swap" data-key="story-intro">A legacy of faith spanning over eight decades.</span></p>
     </div>
     <div class="timeline reveal-stagger">
       <div class="timeline-item">
         <div class="timeline-dot" aria-hidden="true"></div>
-        <div class="timeline-year">1938</div>
-        <p class="timeline-text">Rev. Raymond Riggs founded what would become Central Oaks as a small Free Will Baptist congregation in Detroit, Michigan. What began as a handful of faithful believers would grow into a lasting church family.</p>
+        <div class="timeline-year"><span class="copy-swap" data-key="1938-title">1938</span></div>
+        <p class="timeline-text"><span class="copy-swap" data-key="1938-text">Rev. Raymond Riggs founded what would become Central Oaks as a small Free Will Baptist congregation in Detroit, Michigan. What began as a handful of faithful believers would grow into a lasting church family.</span></p>
       </div>
       <div class="timeline-item">
         <div class="timeline-dot" aria-hidden="true"></div>
-        <div class="timeline-year">1960</div>
-        <p class="timeline-text">The growing church relocated to its current home at 2005 Rochester Rd. in Royal Oak, putting down roots in the community where it continues to serve today.</p>
+        <div class="timeline-year"><span class="copy-swap" data-key="1960-title">1960</span></div>
+        <p class="timeline-text"><span class="copy-swap" data-key="1960-text">The growing church relocated to its current home at 2005 Rochester Rd. in Royal Oak, putting down roots in the community where it continues to serve today.</span></p>
       </div>
       <div class="timeline-item">
         <div class="timeline-dot" aria-hidden="true"></div>
-        <div class="timeline-year">Today</div>
-        <p class="timeline-text">Over 88 years later, Central Oaks Community Church is still faithfully preaching Christ and making disciples. &ldquo;Go therefore and make disciples of all nations, baptizing them in the name of the Father and of the Son and of the Holy Spirit.&rdquo; &mdash; Matthew 28:19</p>
+        <div class="timeline-year"><span class="copy-swap" data-key="today-title">Today</span></div>
+        <p class="timeline-text"><span class="copy-swap" data-key="today-text">Over 88 years later, Central Oaks Community Church is still faithfully preaching Christ and making disciples. &ldquo;Go therefore and make disciples of all nations, baptizing them in the name of the Father and of the Son and of the Holy Spirit.&rdquo; &mdash; Matthew 28:19</span></p>
       </div>
     </div>
   </div>
@@ -602,7 +646,8 @@ h1,h2,h3,h4,h5,h6{font-family:'Playfair Display',serif;line-height:1.3}
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
         Who Leads Us
       </span>
-      <h2 class="section-title">Leadership</h2>
+      <h2 class="section-title"><span class="copy-swap" data-key="leadership-title">Leadership</span></h2>
+      <p class="section-subtitle"><span class="copy-swap" data-key="leadership-intro"></span></p>
     </div>
     <div class="leadership-content reveal-stagger">
       <div class="leader-info light-card">
@@ -611,14 +656,14 @@ h1,h2,h3,h4,h5,h6{font-family:'Playfair Display',serif;line-height:1.3}
         </div>
         <h3 class="leader-name">Derreck Lute</h3>
         <p class="leader-role">Pastor</p>
-        <p class="leader-text">Pastor Derreck Lute shepherds the Central Oaks family with a heart for helping people understand the Bible and follow Jesus in everyday life. His teaching style is warm, practical, and rooted in Scripture.</p>
+        <p class="leader-text"><span class="copy-swap" data-key="pastor-text">Pastor Derreck Lute shepherds the Central Oaks family with a heart for helping people understand the Bible and follow Jesus in everyday life. His teaching style is warm, practical, and rooted in Scripture.</span></p>
       </div>
       <div class="deacons-info light-card">
         <div class="card-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
         </div>
         <h3 style="font-size:1.3rem;font-weight:700;margin-bottom:12px;color:var(--accent)">Deacons</h3>
-        <p class="leader-text">Our deacons serve the church family by caring for practical needs and supporting the ministry. They are servant-leaders who model Christ-like character and help ensure that everyone in our church family is cared for.</p>
+        <p class="leader-text"><span class="copy-swap" data-key="deacons-text">Our deacons serve the church family by caring for practical needs and supporting the ministry. They are servant-leaders who model Christ-like character and help ensure that everyone in our church family is cared for.</span></p>
       </div>
     </div>
   </div>
@@ -632,48 +677,48 @@ h1,h2,h3,h4,h5,h6{font-family:'Playfair Display',serif;line-height:1.3}
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
         Get Involved
       </span>
-      <h2 class="section-title">Ministries</h2>
-      <p class="section-subtitle">There&rsquo;s a place for everyone in our church family.</p>
+      <h2 class="section-title"><span class="copy-swap" data-key="ministries-title">Ministries</span></h2>
+      <p class="section-subtitle"><span class="copy-swap" data-key="ministries-intro">There&rsquo;s a place for everyone in our church family.</span></p>
     </div>
     <div class="ministries-grid reveal-stagger">
       <article class="glass-card tilt-card" aria-label="Children's Ministry">
         <div class="card-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="4" r="2"/><path d="m14 20-2-6-2 6"/><path d="M10 14h4"/><path d="M6 8c0 4 6 8 6 8s6-4 6-8"/></svg>
         </div>
-        <h3 class="card-title">Children&rsquo;s Ministry</h3>
-        <p class="card-text">Our children&rsquo;s ministry serves kids from kindergarten through 5th grade with age-appropriate Bible lessons, activities, and a safe environment to learn and grow in faith.</p>
+        <h3 class="card-title"><span class="copy-swap" data-key="childrens-ministry-title">Children&rsquo;s Ministry</span></h3>
+        <p class="card-text"><span class="copy-swap" data-key="childrens-ministry-text">Our children&rsquo;s ministry serves kids from kindergarten through 5th grade with age-appropriate Bible lessons, activities, and a safe environment to learn and grow in faith.</span></p>
         <p class="ministry-time">Grades K&ndash;5 &middot; Sundays during service</p>
       </article>
       <article class="glass-card tilt-card" aria-label="Student Ministry">
         <div class="card-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
         </div>
-        <h3 class="card-title">Student Ministry</h3>
-        <p class="card-text">Middle and high school students gather for fellowship, Bible study, and fun. A place where teens can ask real questions, build genuine friendships, and grow in their faith.</p>
+        <h3 class="card-title"><span class="copy-swap" data-key="student-ministry-title">Student Ministry</span></h3>
+        <p class="card-text"><span class="copy-swap" data-key="student-ministry-text">Middle and high school students gather for fellowship, Bible study, and fun. A place where teens can ask real questions, build genuine friendships, and grow in their faith.</span></p>
         <p class="ministry-time">Grades 6&ndash;12</p>
       </article>
       <article class="glass-card tilt-card" aria-label="Growth Groups">
         <div class="card-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
         </div>
-        <h3 class="card-title">Growth Groups</h3>
-        <p class="card-text">Small groups that meet regularly to study the Bible, share life, and encourage one another. Growth groups are where deeper connections happen and real discipleship takes root.</p>
+        <h3 class="card-title"><span class="copy-swap" data-key="growth-groups-title">Growth Groups</span></h3>
+        <p class="card-text"><span class="copy-swap" data-key="growth-groups-text">Small groups that meet regularly to study the Bible, share life, and encourage one another. Growth groups are where deeper connections happen and real discipleship takes root.</span></p>
         <p class="ministry-time">Various times throughout the week</p>
       </article>
       <article class="glass-card tilt-card" aria-label="Women's Ministry">
         <div class="card-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
         </div>
-        <h3 class="card-title">Women&rsquo;s Ministry</h3>
-        <p class="card-text">A community of women growing together in faith through Bible studies, fellowship events, and mutual encouragement. A space to build lasting friendships rooted in Christ.</p>
+        <h3 class="card-title"><span class="copy-swap" data-key="womens-ministry-title">Women&rsquo;s Ministry</span></h3>
+        <p class="card-text"><span class="copy-swap" data-key="womens-ministry-text">A community of women growing together in faith through Bible studies, fellowship events, and mutual encouragement. A space to build lasting friendships rooted in Christ.</span></p>
         <p class="ministry-time">Check calendar for schedule</p>
       </article>
       <article class="glass-card tilt-card" aria-label="Wednesday Prayer and the Word">
         <div class="card-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
         </div>
-        <h3 class="card-title">Wednesday Prayer &amp; the Word</h3>
-        <p class="card-text">A midweek gathering focused on prayer and diving deeper into Scripture. Come recharge your faith and join others in lifting up the needs of our church family and community.</p>
+        <h3 class="card-title"><span class="copy-swap" data-key="wednesday-title">Wednesday Prayer &amp; the Word</span></h3>
+        <p class="card-text"><span class="copy-swap" data-key="wednesday-text">A midweek gathering focused on prayer and diving deeper into Scripture. Come recharge your faith and join others in lifting up the needs of our church family and community.</span></p>
         <p class="ministry-time">Wednesdays &middot; 7:00 PM</p>
       </article>
     </div>
@@ -688,8 +733,8 @@ h1,h2,h3,h4,h5,h6{font-family:'Playfair Display',serif;line-height:1.3}
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
         Live Every Sunday
       </span>
-      <h2 class="section-title">Watch Online</h2>
-      <p class="section-subtitle" style="margin:0 auto">Can&rsquo;t make it in person? Join us live on Facebook every Sunday at 11 AM, or catch up anytime on our YouTube channel.</p>
+      <h2 class="section-title"><span class="copy-swap" data-key="watch-title">Watch Online</span></h2>
+      <p class="section-subtitle" style="margin:0 auto"><span class="copy-swap" data-key="watch-text">Can&rsquo;t make it in person? Join us live on Facebook every Sunday at 11 AM, or catch up anytime on our YouTube channel.</span></p>
       <div class="watch-buttons">
         <a href="https://facebook.com/centraloakscc" class="btn-primary magnetic-btn" target="_blank" rel="noopener noreferrer">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
@@ -697,7 +742,7 @@ h1,h2,h3,h4,h5,h6{font-family:'Playfair Display',serif;line-height:1.3}
         </a>
         <a href="https://www.youtube.com/CentralFWBChurch" class="btn-secondary magnetic-btn" target="_blank" rel="noopener noreferrer">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-          Watch a Service
+          <span class="copy-swap" data-key="watch-button">Watch a Service</span>
         </a>
       </div>
     </div>
@@ -712,8 +757,8 @@ h1,h2,h3,h4,h5,h6{font-family:'Playfair Display',serif;line-height:1.3}
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
         Get In Touch
       </span>
-      <h2 class="section-title">Contact Us</h2>
-      <p class="section-subtitle">We&rsquo;d love to hear from you. Drop us a message or stop by!</p>
+      <h2 class="section-title"><span class="copy-swap" data-key="contact-title">Contact Us</span></h2>
+      <p class="section-subtitle"><span class="copy-swap" data-key="contact-subtext">We&rsquo;d love to hear from you. Drop us a message or stop by!</span></p>
     </div>
     <div class="contact-grid reveal-stagger">
       <form action="#" method="post" class="glass-card" aria-label="Contact form">
@@ -1021,6 +1066,334 @@ h1,h2,h3,h4,h5,h6{font-family:'Playfair Display',serif;line-height:1.3}
         d.classList.toggle('active',isActive);
         d.setAttribute('aria-checked',isActive);
       });
+    });
+  });
+})();
+
+/* ===== COPY DOCTRINE SWITCHER ===== */
+(function(){
+  var doctrines = {
+    warm: {
+      "hero-heading": "What if a church was more like a family you belong to instead of a place you go to?",
+      "hero-button": "Plan Your Visit",
+      "dna-title": "Our Family DNA",
+      "dna-intro": "The good news that holds our church family together.",
+      "god-card-title": "God",
+      "god-card-text": "God is the King of the universe. He made everything and sustains it. He is good and deserving of everyone to devote their life to Him.",
+      "people-card-title": "People",
+      "people-card-text": "We have all wanted to be the king of our own lives. But we messed it up and hurt ourselves and those around us. These acts of rebellion we&rsquo;ve all committed are called sin and are deserving of God&rsquo;s judgment.",
+      "jesus-card-title": "Jesus",
+      "jesus-card-text": "Instead of punishing us for our rebellion, God loved us so much that He sent Jesus to earth to suffer in our place. God raised Him from the dead to make Him King of everyone and everything and to offer forgiveness and new life to those who trust in Him.",
+      "response-card-title": "Our Response",
+      "response-card-text": "God has now helped us do two things in response to this news: our church family has each (1) turned away from living our lives as our own king to let Jesus be our king instead and (2) believed in Him.",
+      "mission-heading": "Our church&rsquo;s mission is to help people follow Jesus.",
+      "mission-subtext": "We do this by sharing the good news of Jesus, baptizing those who trust Him, and teaching everyone to follow His teachings together as a church family.",
+      "visit-title": "Plan Your Visit",
+      "visit-intro": "We&rsquo;d love to meet you this Sunday! Here&rsquo;s what to expect.",
+      "wear-title": "What to Wear",
+      "wear-text": "Come as you are! You&rsquo;ll find people in everything from jeans and t-shirts to dress clothes. There&rsquo;s no dress code &mdash; just come comfortable.",
+      "bring-title": "What to Bring",
+      "bring-text": "Just bring yourself! We have Bibles available if you don&rsquo;t have one. We also project lyrics and scripture on screen so you can follow along easily.",
+      "children-title": "Children",
+      "children-text": "Kids are welcome to stay in the service, or we have a staffed nursery and children&rsquo;s classes during the sermon for ages up through 5th grade.",
+      "enter-title": "Where to Enter",
+      "enter-text": "Our building is at 2005 Rochester Rd. in Royal Oak. Look for the main entrance on the north side of the building. Greeters will welcome you and help you find your way!",
+      "story-title": "Our Story",
+      "story-intro": "A legacy of faith spanning over eight decades.",
+      "1938-title": "1938",
+      "1938-text": "Rev. Raymond Riggs founded what would become Central Oaks as a small Free Will Baptist congregation in Detroit, Michigan. What began as a handful of faithful believers would grow into a lasting church family.",
+      "1960-title": "1960",
+      "1960-text": "The growing church relocated to its current home at 2005 Rochester Rd. in Royal Oak, putting down roots in the community where it continues to serve today.",
+      "today-title": "Today",
+      "today-text": "Over 88 years later, Central Oaks Community Church is still faithfully preaching Christ and making disciples. &ldquo;Go therefore and make disciples of all nations, baptizing them in the name of the Father and of the Son and of the Holy Spirit.&rdquo; &mdash; Matthew 28:19",
+      "leadership-title": "Leadership",
+      "leadership-intro": "",
+      "pastor-text": "Pastor Derreck Lute shepherds the Central Oaks family with a heart for helping people understand the Bible and follow Jesus in everyday life. His teaching style is warm, practical, and rooted in Scripture.",
+      "deacons-text": "Our deacons serve the church family by caring for practical needs and supporting the ministry. They are servant-leaders who model Christ-like character and help ensure that everyone in our church family is cared for.",
+      "ministries-title": "Ministries",
+      "ministries-intro": "There&rsquo;s a place for everyone in our church family.",
+      "childrens-ministry-title": "Children&rsquo;s Ministry",
+      "childrens-ministry-text": "Our children&rsquo;s ministry serves kids from kindergarten through 5th grade with age-appropriate Bible lessons, activities, and a safe environment to learn and grow in faith.",
+      "student-ministry-title": "Student Ministry",
+      "student-ministry-text": "Middle and high school students gather for fellowship, Bible study, and fun. A place where teens can ask real questions, build genuine friendships, and grow in their faith.",
+      "growth-groups-title": "Growth Groups",
+      "growth-groups-text": "Small groups that meet regularly to study the Bible, share life, and encourage one another. Growth groups are where deeper connections happen and real discipleship takes root.",
+      "womens-ministry-title": "Women&rsquo;s Ministry",
+      "womens-ministry-text": "A community of women growing together in faith through Bible studies, fellowship events, and mutual encouragement. A space to build lasting friendships rooted in Christ.",
+      "wednesday-title": "Wednesday Prayer &amp; the Word",
+      "wednesday-text": "A midweek gathering focused on prayer and diving deeper into Scripture. Come recharge your faith and join others in lifting up the needs of our church family and community.",
+      "watch-title": "Watch Online",
+      "watch-text": "Can&rsquo;t make it in person? Join us live on Facebook every Sunday at 11 AM, or catch up anytime on our YouTube channel.",
+      "watch-button": "Watch a Service",
+      "contact-title": "Contact Us",
+      "contact-subtext": "We&rsquo;d love to hear from you. Drop us a message or stop by!"
+    },
+    bold: {
+      "hero-heading": "Jesus is King. This changes everything. Come discover why.",
+      "hero-button": "Join Us Sunday",
+      "dna-title": "What We Believe",
+      "dna-intro": "We stand on one message. It is the oldest story ever told &mdash; and the only one that matters.",
+      "god-card-title": "God",
+      "god-card-text": "There is a King of the universe. He made everything, sustains everything, and deserves the full devotion of every life.",
+      "people-card-title": "Humanity",
+      "people-card-text": "We all tried to take the throne for ourselves. We broke what He built. Scripture calls this sin &mdash; and it carries a weight we cannot bear alone.",
+      "jesus-card-title": "Jesus",
+      "jesus-card-text": "God did not destroy us. He sent His Son to suffer in our place. Jesus died, rose, and now reigns as King &mdash; offering forgiveness and new life to all who trust Him.",
+      "response-card-title": "Our Response",
+      "response-card-text": "We turned from ruling our own lives. We believed. And everything changed.",
+      "mission-heading": "We exist for one purpose: to help people follow Jesus.",
+      "mission-subtext": "Each of us has been given something to contribute so that others can be adopted into this family and we can all grow to become more like Christ.",
+      "visit-title": "Join Us This Sunday at 11 AM",
+      "visit-intro": "Come as you are. Leave changed. Sunday mornings are where it all begins.",
+      "wear-title": "What to Wear",
+      "wear-text": "Come as you are. Most people dress business-casual, but there is no dress code. We care about you, not your outfit.",
+      "bring-title": "What to Bring",
+      "bring-text": "A Bible if you have one. If not, take one from the pew &mdash; it is yours to keep. That is all you need.",
+      "children-title": "Children",
+      "children-text": "We have a nursery for ages 0&ndash;2 and Sunday School with worship for grades K&ndash;5. Your children will be cared for and taught the truth.",
+      "enter-title": "Where to Enter",
+      "enter-text": "Look for the long awning on the north side of the building. Come in and head up the stairs. You will not miss it.",
+      "story-title": "Since 1938, One Mission",
+      "story-intro": "",
+      "1938-title": "1938",
+      "1938-text": "Raymond Riggs planted a church in Detroit with an unshakeable conviction: the gospel transforms lives.",
+      "1960-title": "1960",
+      "1960-text": "The church moved to Royal Oak and built the campus that still stands today. Then known as Central Free Will Baptist Church.",
+      "today-title": "Today",
+      "today-text": "The name changed in 2015 to Central Oaks. The mission never changed: believe the good news of Jesus Christ and make disciples.",
+      "leadership-title": "Leadership",
+      "leadership-intro": "Our church is led with conviction and accountability.",
+      "pastor-text": "Pastor Derreck Lute provides spiritual care, preaches God&rsquo;s Word, and gives leadership and oversight to our church family.",
+      "deacons-text": "A group of deacons serve practically and provide counsel to our pastor, ensuring our church stays grounded and faithful.",
+      "ministries-title": "Ministries",
+      "ministries-intro": "Every ministry exists to build up the body and make disciples.",
+      "childrens-ministry-title": "Children&rsquo;s Ministry (K&ndash;5)",
+      "childrens-ministry-text": "Sunday School at 9:45 AM. Adventurer&rsquo;s Worship at 11 AM. Wednesday Night Kids at 7 PM. We instill in our children a love for God, His Word, and a foundation for a lifetime of service to Jesus.",
+      "student-ministry-title": "Student Ministry (6&ndash;12)",
+      "student-ministry-text": "Sunday School at 9:45 AM. Wednesday Night at 7 PM. Through worship, small groups, games, retreats, and service, we help students grow in faith and learn what it means to follow Jesus.",
+      "growth-groups-title": "Growth Groups",
+      "growth-groups-text": "Adults meet weekly at 9:45 AM Sundays for prayer and Bible study, plus various times for fellowship and serving. Ask someone which group they are in.",
+      "womens-ministry-title": "Women&rsquo;s Ministry",
+      "womens-ministry-text": "Our women serve others practically and spend quality time together. All women are welcome.",
+      "wednesday-title": "Wednesday Prayer &amp; the Word",
+      "wednesday-text": "Every Wednesday at 7 PM we go verse-by-verse through a book of the Bible and pray together as a church family. All are welcome.",
+      "watch-title": "Watch Online",
+      "watch-text": "Watch live on Facebook every Sunday at 11 AM, or catch a previous gathering anytime.",
+      "watch-button": "Watch a Service",
+      "contact-title": "Get in Touch",
+      "contact-subtext": "Have questions? We would love to hear from you."
+    },
+    story: {
+      "hero-heading": "In 1938, a man named Raymond Riggs started a small church in Detroit with a big belief &mdash; that God changes lives. Eighty-eight years later, we are still watching Him do it.",
+      "hero-button": "Come See for Yourself",
+      "dna-title": "Our Family DNA",
+      "dna-intro": "Every family has a story that holds them together. This is ours.",
+      "god-card-title": "The King",
+      "god-card-text": "Before anything existed, there was a King &mdash; good, powerful, and worthy of everything. He spoke, and the universe answered.",
+      "people-card-title": "The Rebellion",
+      "people-card-text": "But we wanted our own kingdoms. We grabbed for the crown and broke the world &mdash; and ourselves &mdash; in the process.",
+      "jesus-card-title": "The Rescue",
+      "jesus-card-text": "Instead of judgment, God sent rescue. His own Son walked into our wreckage, took our punishment, and walked out of a grave three days later. He is still offering that same rescue today.",
+      "response-card-title": "The Turning",
+      "response-card-text": "One by one, we laid down our little kingdoms. We believed the story was true. And we became a family.",
+      "mission-heading": "Now we spend our days doing one thing: helping others find what we found.",
+      "mission-subtext": "Each of us plays a part in this story &mdash; so others can be welcomed in and we can all grow together.",
+      "visit-title": "Your Chapter Starts Here",
+      "visit-intro": "Every Sunday at 11 AM, we gather to remember the story and invite others into it. There is a seat for you.",
+      "wear-title": "What to Wear",
+      "wear-text": "There is no costume required for this story. Most people dress business-casual. Some come in jeans. You will fit in just fine.",
+      "bring-title": "What to Bring",
+      "bring-text": "A Bible if you have one. If not, we will put one in your hands &mdash; and it is yours to keep.",
+      "children-title": "Children",
+      "children-text": "The youngest characters in our story are cared for in our nursery (ages 0&ndash;2) and taught in Sunday School and worship (grades K&ndash;5).",
+      "enter-title": "Where to Enter",
+      "enter-text": "Follow the long awning on the north side of the building. Come in, head up the stairs, and step into the story.",
+      "story-title": "Three Chapters. One Thread.",
+      "story-intro": "",
+      "1938-title": "Chapter One: 1938",
+      "1938-text": "Raymond Riggs planted a small church in Detroit. He believed one thing above all: the gospel changes people.",
+      "1960-title": "Chapter Two: 1960",
+      "1960-text": "The church moved to Royal Oak and built the building that still stands today. For decades, it was Central Free Will Baptist Church.",
+      "today-title": "Chapter Three: Today",
+      "today-text": "In 2015, we became Central Oaks. The scenery changed. The plot did not. We still believe what Jesus said: Go and make disciples.",
+      "leadership-title": "The Ones Who Tend the Fire",
+      "leadership-intro": "Every family needs someone to keep the flame burning.",
+      "pastor-text": "Pastor Derreck Lute shepherds our church family &mdash; preaching, teaching, and caring for the people God has entrusted to him.",
+      "deacons-text": "Our deacons serve behind the scenes and beside the pastor, providing practical help and wise counsel.",
+      "ministries-title": "Where the Story Comes Alive",
+      "ministries-intro": "These are the places where we live out what we believe &mdash; together.",
+      "childrens-ministry-title": "Children&rsquo;s Ministry (K&ndash;5)",
+      "childrens-ministry-text": "Sunday School at 9:45 AM. Adventurer&rsquo;s Worship at 11 AM. Wednesday Night Kids at 7 PM. We are writing the first chapters of faith for the next generation.",
+      "student-ministry-title": "Student Ministry (6&ndash;12)",
+      "student-ministry-text": "Sunday School at 9:45 AM. Wednesday Night at 7 PM. Worship, conversations, games, retreats, service &mdash; everything a young person needs to own their faith.",
+      "growth-groups-title": "Growth Groups",
+      "growth-groups-text": "Adults gather Sundays at 9:45 AM and at various times throughout the week for prayer, study, and real life together.",
+      "womens-ministry-title": "Women&rsquo;s Ministry",
+      "womens-ministry-text": "The women of Central Oaks serve, laugh, and grow together. Every woman is welcome in this circle.",
+      "wednesday-title": "Wednesday Prayer &amp; the Word",
+      "wednesday-text": "Every Wednesday at 7 PM, we walk through Scripture verse by verse and pray together. It is one of the most grounding rhythms of our week.",
+      "watch-title": "Watch the Story Unfold",
+      "watch-text": "See what a Sunday gathering looks like. Watch live on Facebook at 11 AM or catch a previous service.",
+      "watch-button": "Watch a Gathering",
+      "contact-title": "Every Good Story Starts with a Conversation",
+      "contact-subtext": "Reach out. We would love to hear from you."
+    },
+    plain: {
+      "hero-heading": "We are a church in Royal Oak that actually feels like family. Not perfect &mdash; just real.",
+      "hero-button": "Come This Sunday",
+      "dna-title": "Here is What We Believe",
+      "dna-intro": "No jargon. No fine print. Just the truth, in plain English.",
+      "god-card-title": "God",
+      "god-card-text": "God made everything. He is in charge. He is good. And He is worth giving your life to.",
+      "people-card-title": "People",
+      "people-card-text": "We have all tried running our own show. It does not go well. The Bible calls that sin, and it matters more than we want to admit.",
+      "jesus-card-title": "Jesus",
+      "jesus-card-text": "God loved us too much to leave us there. He sent Jesus to take the hit for us. Jesus died, came back, and now offers a fresh start to anyone who wants one.",
+      "response-card-title": "Our Response",
+      "response-card-text": "We each decided to stop pretending we had it figured out. We trusted Jesus instead. Best decision we ever made.",
+      "mission-heading": "We help people follow Jesus. That is it. That is the whole thing.",
+      "mission-subtext": "Everyone here has something to give. We are all growing. Nobody has arrived.",
+      "visit-title": "Sundays at 11. Come Check It Out.",
+      "visit-intro": "No pressure. No weird altar calls. Just come, sit down, and see what you think.",
+      "wear-title": "What to Wear",
+      "wear-text": "Most folks are business-casual. Some are jeans-and-sneakers. Nobody is keeping score.",
+      "bring-title": "What to Bring",
+      "bring-text": "A Bible if you have got one. If not, grab one from the pew &mdash; it is yours to keep.",
+      "children-title": "Kids",
+      "children-text": "Nursery for the little ones (0&ndash;2). Sunday School and worship for grades K&ndash;5. Your kids are in good hands.",
+      "enter-title": "How to Get In",
+      "enter-text": "Long awning, north side of the building. Come in, go up the stairs. You cannot miss it.",
+      "story-title": "A Little History",
+      "story-intro": "",
+      "1938-title": "1938",
+      "1938-text": "Raymond Riggs started a church in Detroit. Simple as that.",
+      "1960-title": "1960",
+      "1960-text": "We moved to Royal Oak and built the building we are still in today. Used to be called Central Free Will Baptist.",
+      "today-title": "Today",
+      "today-text": "Changed the name to Central Oaks in 2015. Did not change anything else. Still believe in Jesus, still trying to follow Him.",
+      "leadership-title": "Who Runs This Place",
+      "leadership-intro": "Short answer: Jesus. Longer answer:",
+      "pastor-text": "Pastor Derreck Lute leads our church. He preaches, teaches, and genuinely cares about people.",
+      "deacons-text": "We also have deacons who keep things running and keep our pastor grounded. It is a team effort.",
+      "ministries-title": "What We Do During the Week",
+      "ministries-intro": "Church is not just Sundays. Here is what else happens.",
+      "childrens-ministry-title": "Kids Ministry (K&ndash;5)",
+      "childrens-ministry-text": "Sunday School at 9:45 AM. Worship at 11 AM. Wednesday nights at 7 PM. We help parents raise kids who love God.",
+      "student-ministry-title": "Students (6&ndash;12)",
+      "student-ministry-text": "Sunday School at 9:45 AM. Wednesday nights at 7 PM. Worship, small groups, games, retreats, service projects. Good stuff.",
+      "growth-groups-title": "Growth Groups",
+      "growth-groups-text": "Adults meet Sundays at 9:45 AM for Bible study and prayer. Other groups meet at various times. Best way to find one: just ask someone.",
+      "womens-ministry-title": "Women&rsquo;s Ministry",
+      "womens-ministry-text": "The women here love to serve and hang out together. Everyone is welcome.",
+      "wednesday-title": "Wednesday Nights",
+      "wednesday-text": "7 PM every Wednesday. We go through a book of the Bible verse by verse and pray together. Low-key, no pressure. Come check it out.",
+      "watch-title": "Watch From Home",
+      "watch-text": "Not ready to show up in person? Totally fine. Watch live on Facebook at 11 AM on Sundays, or watch an old one whenever.",
+      "watch-button": "Watch a Service",
+      "contact-title": "Got Questions? Just Ask.",
+      "contact-subtext": "We are not complicated. Send us a message."
+    },
+    ancient: {
+      "hero-heading": "For 88 years, one truth has anchored this place: Christ is risen. He is Lord. And there is room at the table.",
+      "hero-button": "Enter In",
+      "dna-title": "The Gospel",
+      "dna-intro": "The gospel is not new. But it is still the most revolutionary message in human history.",
+      "god-card-title": "God",
+      "god-card-text": "The Creator of all things &mdash; sovereign, sustaining, worthy of worship. He is good, and He is God.",
+      "people-card-title": "Humanity",
+      "people-card-text": "We chose rebellion over surrender. Every one of us. The ancient word for it is sin &mdash; and it severed what was meant to be whole.",
+      "jesus-card-title": "Jesus Christ",
+      "jesus-card-text": "The Father sent the Son &mdash; not to condemn, but to redeem. Christ suffered, died, and rose again so that forgiveness and new life could be offered to all who believe.",
+      "response-card-title": "Repentance &amp; Faith",
+      "response-card-text": "We have repented and believed. We have turned from self-rule to submit to the King who actually deserves the throne.",
+      "mission-heading": "Our mission is ancient and unchanged: make disciples. Help people follow Jesus.",
+      "mission-subtext": "Each member of this body has been given gifts to build up the whole &mdash; so that others may be grafted in and all may grow into the likeness of Christ.",
+      "visit-title": "The Invitation Has Been Standing for Two Thousand Years",
+      "visit-intro": "The doors open Sunday at 11 AM. Come and see.",
+      "wear-title": "Attire",
+      "wear-text": "Most gather in business-casual dress. Some more formal, some more casual. Come as you are; the invitation is for you, not your wardrobe.",
+      "bring-title": "What to Bring",
+      "bring-text": "A Bible, if you have one. If not, you will find one waiting for you in the pew. Take it home. It is the most important book you will ever hold.",
+      "children-title": "Children",
+      "children-text": "A nursery serves our youngest (ages 0&ndash;2). Sunday School and worship are provided for grades K&ndash;5. We take seriously the call to raise the next generation in the knowledge of the Lord.",
+      "enter-title": "Entering",
+      "enter-text": "The main entrance faces north, beneath a long awning. Ascend the stairs and you will find us gathered.",
+      "story-title": "Rooted in 1938. Grounded in Eternity.",
+      "story-intro": "",
+      "1938-title": "1938",
+      "1938-text": "Raymond Riggs planted a church in Detroit with a conviction that the gospel transforms lives.",
+      "1960-title": "1960",
+      "1960-text": "The congregation moved to Royal Oak and built the campus that still stands today &mdash; then Central Free Will Baptist, now Central Oaks.",
+      "today-title": "Today",
+      "today-text": "The address changed. The name changed. The mission never did. &lsquo;Go and make disciples.&rsquo; &mdash; Matthew 28:19",
+      "leadership-title": "Shepherds &amp; Servants",
+      "leadership-intro": "Christ is the head of this church. Under Him, faithful men lead and serve.",
+      "pastor-text": "Pastor Derreck Lute shepherds our congregation &mdash; preaching the Word, providing spiritual care, and offering leadership rooted in Scripture.",
+      "deacons-text": "A body of deacons serves alongside the pastor, attending to practical needs and providing godly counsel.",
+      "ministries-title": "The Ancient Rhythms",
+      "ministries-intro": "Worship, study, prayer, service &mdash; the disciplines that have shaped the people of God for millennia.",
+      "childrens-ministry-title": "Children&rsquo;s Ministry (K&ndash;5)",
+      "childrens-ministry-text": "Sunday School at 9:45 AM. Adventurer&rsquo;s Worship at 11 AM. Wednesday evenings at 7 PM. We seek to lay the foundation of faith that will endure a lifetime.",
+      "student-ministry-title": "Student Ministry (6&ndash;12)",
+      "student-ministry-text": "Sunday School at 9:45 AM. Wednesday evenings at 7 PM. Through worship, study, fellowship, and service, we disciple the next generation.",
+      "growth-groups-title": "Growth Groups",
+      "growth-groups-text": "Adults gather Sundays at 9:45 AM and throughout the week for prayer, the study of Scripture, and the fellowship of believers.",
+      "womens-ministry-title": "Women&rsquo;s Ministry",
+      "womens-ministry-text": "The women of Central Oaks serve one another and the community with joy and faithfulness. All women are welcome.",
+      "wednesday-title": "Wednesday Prayer &amp; the Word",
+      "wednesday-text": "Each Wednesday at 7 PM, we walk through Scripture verse by verse and lift our prayers together. It is one of the most sacred rhythms of our common life.",
+      "watch-title": "Watch &amp; Worship",
+      "watch-text": "Join us live on Facebook each Sunday at 11 AM, or revisit a previous gathering at your own pace.",
+      "watch-button": "Watch a Service",
+      "contact-title": "Seek and You Will Find",
+      "contact-subtext": "Knock and the door will be opened. Reach out to us."
+    }
+  };
+
+  var copyDots = document.querySelectorAll('.copy-dot');
+  var swapEls = document.querySelectorAll('.copy-swap');
+
+  function applyDoctrine(key, animate) {
+    var data = doctrines[key];
+    if (!data) return;
+
+    if (animate) {
+      swapEls.forEach(function(el) { el.classList.add('fading'); });
+      setTimeout(function() {
+        swapEls.forEach(function(el) {
+          var k = el.getAttribute('data-key');
+          if (data[k] !== undefined) el.innerHTML = data[k];
+        });
+        swapEls.forEach(function(el) { el.classList.remove('fading'); });
+      }, 300);
+    } else {
+      swapEls.forEach(function(el) {
+        var k = el.getAttribute('data-key');
+        if (data[k] !== undefined) el.innerHTML = data[k];
+      });
+    }
+
+    copyDots.forEach(function(d) {
+      var isActive = d.getAttribute('data-copy-val') === key;
+      d.classList.toggle('active', isActive);
+      d.setAttribute('aria-checked', isActive);
+    });
+
+    localStorage.setItem('copyDoctrine', key);
+  }
+
+  /* Load saved doctrine on page load */
+  var saved = localStorage.getItem('copyDoctrine') || 'warm';
+  if (doctrines[saved]) {
+    applyDoctrine(saved, false);
+  }
+
+  /* Click handlers */
+  copyDots.forEach(function(dot) {
+    dot.addEventListener('click', function() {
+      var val = dot.getAttribute('data-copy-val');
+      if (val === localStorage.getItem('copyDoctrine')) return;
+      applyDoctrine(val, true);
     });
   });
 })();
